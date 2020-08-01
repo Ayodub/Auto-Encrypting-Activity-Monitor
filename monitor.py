@@ -4,10 +4,9 @@ from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler, LoggingEventHandler
 
 
-print ("How to use this script")
-print ("python3 monitor.py /home/user/folder/to/monitor")
-print ("If argv is empty, the script will monitor the path where the script are")
-print ("")
+print ("How to use this script: python3 monitor.py /path/to/watch \nIf no path is specified it will monitor the home directory")
+
+
 
 patterns = "*"
 ignore_patterns = ""
