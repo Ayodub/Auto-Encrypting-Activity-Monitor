@@ -27,9 +27,7 @@ write_key() #generate encryption
 
 
 class EventProcessor(pyinotify.ProcessEvent):
-    _methods = ["IN_CREATE",
-                "IN_OPEN",
-                "IN_ACCESS",
+    _methods = ["IN_ACCESS",
                 "IN_ATTRIB",
                 "IN_CLOSE_NOWRITE",
                 "IN_CLOSE_WRITE",
@@ -77,12 +75,14 @@ def process_generator(cls, method):
                 with open(fullpath, "rb") as file:             # read all file data
                     file_data = file.read()
        
-                    encrypted_data = f.encrypt(file_data)  # encrypt data
+                encrypted_data = f.encrypt(file_data)  # encrypt data
 
                 with open(fullnewf, "wb") as file:  # write the encrypted file
                     file.write(encrypted_data)
+                    
+            THIS_IS_A_PURPOSEFUL_ERROR_WHICH_WORKS_FOR_SINGLE_TARGET #THIS STOPS ENCRYPTING EVERYTHING THROUGH AN ERROR. This works for watching a single file, as it is already encrypted, but if there's still other files to protect need a different method
 
-                os.remove(fullpath)  #removes the old file
+                #os.remove(fullpath)  #removes the old file
                 
     _method_name.__name__ = "process_{}".format(method)
     setattr(cls, _method_name.__name__, _method_name)
