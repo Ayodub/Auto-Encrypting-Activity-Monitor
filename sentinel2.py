@@ -1,4 +1,5 @@
 import os
+import sys
 import pyinotify
 import glob
 import pyinotify,subprocess
@@ -84,7 +85,7 @@ def process_generator(cls, method):
                         file.write(encrypted_data)
                         
             elif "aes" in filepath:
-                THIS_IS_A_PURPOSEFUL_ERROR_WHICH_WORKS_FOR_SINGLE_TARGET #THIS STOPS ENCRYPTING EVERYTHING THROUGH AN ERROR. This works for watching a single file, as it is already encrypted, but if there's still other files to protect need a different method
+                sys.exit()
 
                 #os.remove(fullpath)  #removes the old file
                 
