@@ -15,13 +15,15 @@ target = input("input the filepath of your important files: ")
 
 
 def write_key():  #define generate encryption key
-            key = Fernet.generate_key()
-            with open("key.key", "wb") as key_file:
-                key_file.write(key)
+    key = Fernet.generate_key()
+    with open("key.key", "wb") as key_file:
+        key_file.write(key)
 
 write_key() #generate encryption
 
 # INSERT DECRYPTION METHOD HERE LATER
+
+print("\n>>>Your decryption key has been generated in the location of this script.\n>>>it is recommended you hide this in a separate location to this script.")
 
 
 
@@ -66,21 +68,23 @@ def process_generator(cls, method):
         for x in glob.glob(currentdirectory +'/**/*/*', recursive=True):    # Main loop to encrypt all files recursively
 # double asterix ** tells program to encrypt all types of files
 
-            fullpath = os.path.join(currentdirectory, x)
-            fullnewf = os.path.join(currentdirectory, x + '.aes')
-    # Encrypt
-            if os.path.isfile(fullpath):   #make sure it is a file, otherwise if it is folder it will give error
-                print('>>> Original: \t' + fullpath + '')
-                print('>>> Encrypted: \t' + fullnewf + '\n')
-                with open(fullpath, "rb") as file:             # read all file data
-                    file_data = file.read()
-       
-                encrypted_data = f.encrypt(file_data)  # encrypt data
+            filepath = os.path.join(currentdirectory, x)
+            newfile = os.path.join(currentdirectory, x + '.aes')
+            # Encrypt
+            if "aes" not in filepath:
+                if os.path.isfile(filepath):   #make sure it is a file, otherwise if it is folder it will give error
+                    print('>>> Located: \t' + filepath + '')
+                    print('>>> Encrypted: \t' + newfile + '\n')
+                    with open(filepath, "rb") as file:      #rb= "read in binary"
+                        file_data = file.read()
+                
+                    encrypted_data = f.encrypt(file_data)  
 
-                with open(fullnewf, "wb") as file:  # write the encrypted file
-                    file.write(encrypted_data)
-                    
-            THIS_IS_A_PURPOSEFUL_ERROR_WHICH_WORKS_FOR_SINGLE_TARGET #THIS STOPS ENCRYPTING EVERYTHING THROUGH AN ERROR. This works for watching a single file, as it is already encrypted, but if there's still other files to protect need a different method
+                    with open(newfile, "wb") as file:  # wb = "write in binary"
+                        file.write(encrypted_data)
+                        
+            elif "aes" in filepath:
+                THIS_IS_A_PURPOSEFUL_ERROR_WHICH_WORKS_FOR_SINGLE_TARGET #THIS STOPS ENCRYPTING EVERYTHING THROUGH AN ERROR. This works for watching a single file, as it is already encrypted, but if there's still other files to protect need a different method
 
                 #os.remove(fullpath)  #removes the old file
                 
